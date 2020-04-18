@@ -37,6 +37,7 @@ interface IEsphomePlatformConfig extends IPlatformConfig {
         port?: number;
     }[],
     blacklist?: string[];
+    debug?: boolean;
 }
 
 export class EsphomePlatform extends HomebridgePlatform {
@@ -90,6 +91,10 @@ export class EsphomePlatform extends HomebridgePlatform {
                 this.accessories.push(accessory);
                 this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
             }
+        }
+
+        if (this.config.debug) {
+            this.log('Raw Discovered Components', device.components);
         }
     }
 
